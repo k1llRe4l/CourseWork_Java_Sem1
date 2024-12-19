@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Образовательный кампус</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div style="text-align: center; margin-top: 50px;">
+  <h1>Добро пожаловать, [[${username}]]!</h1>
+  <p>Пожалуйста, выберите раздел</p>
+  <div style="margin: 20px;">
+    <a href="/students" style="display: block; margin: 10px;">
+      <button style="padding: 10px 20px; font-size: 16px;">Просмотр списка студентов</button>
+    </a>
+    <a href="/schedule" style="display: block; margin: 10px;">
+      <button style="padding: 10px 20px; font-size: 16px;">Просмотр расписания</button>
+    </a>
+    <a href="/about" style="display: block; margin: 10px;">
+      <button style="padding: 10px 20px; font-size: 16px;">Об авторе</button>
+    </a>
+  </div>
+</div>
+</body>
+</html>

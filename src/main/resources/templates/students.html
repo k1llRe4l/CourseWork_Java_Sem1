@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Образовательный кампус</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<h1>Студенты</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>ФИО</th>
+        <th>Группа</th>
+        <th>Средний балл</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.group.groupName}"></td>
+        <td th:text="${student.averageScore}"></td>
+        <td>
+            <a th:href="@{/students/edit(id=${student.id})}" class="edit-button">Изменить</a>
+            <form th:action="@{/students/delete}" method="post" style="display:inline;">
+                <input type="hidden" name="id" th:value="${student.id}" />
+                <button type="submit" class="delete-button">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<button class="add-button" onclick="location.href='/students/add'">+ Добавить студента</button>
+<a href="/welcome">
+    <button class="back-button">Назад</button>
+</a>
+</body>
+</html>

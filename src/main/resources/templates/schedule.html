@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <title>Образовательный кампус</title>
+  <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<h1>Расписание</h1>
+
+<!-- Форма фильтрации -->
+<form action="/schedule/view" method="get" style="text-align: center; margin-bottom: 20px;">
+  <label for="date">Дата:</label>
+  <input type="date" id="date" name="date" />
+
+  <label for="group">Группа:</label>
+  <select id="group" name="groupId">
+    <option value="">Все группы</option>
+    <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.groupName}"></option>
+  </select>
+
+  <button type="submit" class="filter-button">Фильтр</button>
+</form>
+
+<!-- Таблица с расписанием -->
+<table>
+  <thead>
+  <tr>
+    <th>Дата</th>
+    <th>Время</th>
+    <th>Дисциплина</th>
+    <th>Группа</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="schedule : ${schedules}">
+    <td th:text="${#temporals.format(schedule.date, 'yyyy-MM-dd')}"></td>
+    <td th:text="${#temporals.format(schedule.time, 'HH:mm')}"></td>
+    <td th:text="${schedule.subject}"></td>
+    <td th:text="${schedule.group.groupName}"></td>
+  </tr>
+  </tbody>
+</table>
+
+<div style="text-align: left; margin-top: 20px;" sec:authorize="hasAuthority('ADMIN')">
+  <button class="add-button" onclick="location.href='/schedule/add'">+ Добавить занятие</button>
+</div>
+
+
+<a href="/welcome">
+  <button class="back-button">Назад</button>
+</a>
+</body>
+</html>
+
+
+
+
+
+
+
