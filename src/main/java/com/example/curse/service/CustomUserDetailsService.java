@@ -11,12 +11,23 @@ import com.example.curse.repository.UserRepository;
 
 import java.util.Collections;
 
+/**
+ * Сервис для загрузки информации о пользователе по имени пользователя.
+ * Реализует интерфейс {@link UserDetailsService}.
+ */
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Загружает информацию о пользователе по имени пользователя.
+     *
+     * @param username имя пользователя для поиска
+     * @return объект {@link UserDetails}, содержащий информацию о пользователе
+     * @throws UsernameNotFoundException если пользователь с указанным именем не найден
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
@@ -31,7 +42,3 @@ public class CustomUserDetailsService implements UserDetailsService {
         );
     }
 }
-
-
-
-

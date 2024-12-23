@@ -15,11 +15,23 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
 
+/**
+ * Компонент для инициализации базы данных с начальными данными.
+ */
 @Component
 public class InitDatabase {
 
+    /**
+     * Создает и возвращает {@link CommandLineRunner}, который инициализирует базу данных.
+     *
+     * @param userRepository репозиторий для работы с пользователями
+     * @param studentRepository репозиторий для работы со студентами
+     * @param groupRepo репозиторий для работы с учебными группами
+     * @param scheduleRepo репозиторий для работы с расписанием
+     * @param encoder кодировщик паролей
+     * @return {@link CommandLineRunner} для инициализации базы данных
+     */
     @Bean
     CommandLineRunner init(UserRepository userRepository,
                            StudentRepository studentRepository,
@@ -56,6 +68,14 @@ public class InitDatabase {
                 groupB.setGroupName("Группа Б");
                 groupRepo.save(groupB);
 
+                StudentGroup groupC = new StudentGroup();
+                groupC.setGroupName("Группа С");
+                groupRepo.save(groupC);
+
+                StudentGroup groupD = new StudentGroup();
+                groupD.setGroupName("Группа Д");
+                groupRepo.save(groupD);
+
                 System.out.println("Student groups created.");
 
                 // Создаём студентов
@@ -73,5 +93,3 @@ public class InitDatabase {
         };
     }
 }
-
-

@@ -17,6 +17,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+/**
+ * Контроллер для управления расписанием.
+ * Позволяет отображать расписание, добавлять новые занятия и фильтровать их по дате и группе.
+ */
 @Controller
 public class ScheduleController {
 
@@ -26,7 +30,14 @@ public class ScheduleController {
     @Autowired
     private StudentGroupRepository studentGroupRepository;
 
-    // Метод для отображения расписания
+    /**
+     * Отображает расписание с возможностью фильтрации по дате и группе.
+     *
+     * @param date    дата для фильтрации (необязательно)
+     * @param groupId ID группы для фильтрации (необязательно)
+     * @param model   объект {@link Model} для передачи данных в представление
+     * @return имя HTML-шаблона "schedule"
+     */
     @GetMapping("/schedule/view")
     public String schedulePage(@RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
                                @RequestParam(required = false) Long groupId,
@@ -52,7 +63,13 @@ public class ScheduleController {
         return "schedule"; // Шаблон для отображения расписания
     }
 
-    // Метод для отображения формы добавления занятия (доступно только для администратора)
+    /**
+     * Отображает форму для добавления нового занятия.
+     * Доступно только для пользователей с ролью ADMIN.
+     *
+     * @param model объект {@link Model} для передачи данных в представление
+     * @return имя HTML-шаблона "add-schedule"
+     */
     @Secured("ADMIN")
     @GetMapping("/schedule/add")
     public String addScheduleForm(Model model) {
@@ -60,7 +77,16 @@ public class ScheduleController {
         return "add-schedule"; // Шаблон для добавления занятия
     }
 
-    // Метод для сохранения нового занятия (доступно только для администратора)
+    /**
+     * Сохраняет новое занятие в расписании.
+     * Доступно только для пользователей с ролью ADMIN.
+     *
+     * @param date    дата занятия
+     * @param time    время занятия
+     * @param subject предмет занятия
+     * @param groupId ID группы, к которой относится занятие
+     * @return перенаправление на страницу расписания
+     */
     @Secured("ADMIN")
     @PostMapping("/schedule/save")
     public String saveSchedule(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
@@ -77,9 +103,4 @@ public class ScheduleController {
         return "redirect:/schedule/view"; // После сохранения перенаправляем на страницу расписания
     }
 }
-
-
-
-
-
 
